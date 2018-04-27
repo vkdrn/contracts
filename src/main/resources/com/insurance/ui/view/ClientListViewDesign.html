@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;GENERATE_GETTERS&quot;:false,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;valo&quot;}">
+  <meta name="vaadin-version" content="8.0.5">
+ </head>
+ <body>
+  <vaadin-vertical-layout size-full>
+   <vaadin-grid-layout width="824px" height="367px" _id="gridLayout">
+    <row>
+     <column>
+      <vaadin-grid-layout width="783px" height="55px">
+       <row>
+        <column>
+         <vaadin-label plain-text _id="labelFullname" :middle :center>
+           ФИО 
+         </vaadin-label>
+        </column>
+        <column>
+         <vaadin-text-field placeholder="фамилия" width="248px" _id="inpLastname" :middle></vaadin-text-field>
+        </column>
+        <column>
+         <vaadin-text-field placeholder="имя" _id="inpFirstname" :middle></vaadin-text-field>
+        </column>
+        <column>
+         <vaadin-text-field placeholder="отчество" _id="inpPatronymic" :middle></vaadin-text-field>
+        </column>
+        <column>
+         <vaadin-button icon="fonticon://Vaadin-Icons/e805" plain-text _id="btnSearch" :middle></vaadin-button>
+        </column>
+       </row>
+      </vaadin-grid-layout>
+     </column>
+    </row>
+    <row>
+     <column>
+      <vaadin-grid width="781px" height="189px" _id="grid" :middle :center></vaadin-grid>
+     </column>
+    </row>
+    <row>
+     <column>
+      <vaadin-grid-layout width="783px" height="30px">
+       <row>
+        <column>
+         <vaadin-button width="154px" height="30px" plain-text _id="btnSelect" :middle :right>
+           Выбрать 
+         </vaadin-button>
+        </column>
+        <column>
+         <vaadin-button width="154px" height="30px" plain-text _id="btnNew" :middle :center>
+           Новый 
+         </vaadin-button>
+        </column>
+        <column>
+         <vaadin-button width="149px" height="30px" plain-text _id="btnClose" :middle>
+           Закрыть 
+         </vaadin-button>
+        </column>
+       </row>
+      </vaadin-grid-layout>
+     </column>
+    </row>
+   </vaadin-grid-layout>
+  </vaadin-vertical-layout>
+ </body>
+</html>

@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;GENERATE_GETTERS&quot;:false,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;valo&quot;}">
+  <meta name="vaadin-version" content="8.0.5">
+ </head>
+ <body>
+  <vaadin-vertical-layout height="426px">
+   <vaadin-grid-layout width="905px" height="144px">
+    <row>
+     <column>
+      <vaadin-grid-layout width="998px" height="70px">
+       <row>
+        <column>
+         <vaadin-label plain-text _id="labelFullname" :middle :center>
+           ФИО 
+         </vaadin-label>
+        </column>
+        <column>
+         <vaadin-text-field placeholder="фамилия" width="300px" _id="inpLastname" :middle></vaadin-text-field>
+        </column>
+        <column>
+         <vaadin-text-field placeholder="имя" width="300px" _id="inpFirstname" :middle></vaadin-text-field>
+        </column>
+        <column>
+         <vaadin-text-field placeholder="отчество" width="300px" _id="inpPatronymic" :middle></vaadin-text-field>
+        </column>
+       </row>
+      </vaadin-grid-layout>
+     </column>
+    </row>
+    <row>
+     <column>
+      <vaadin-grid-layout width="422px" height="51px">
+       <row>
+        <column>
+         <vaadin-label plain-text _id="labelBirthdate" :middle :center>
+           Дата рождения 
+         </vaadin-label>
+        </column>
+        <column>
+         <vaadin-date-field _id="calBirthdate" :middle :center></vaadin-date-field>
+        </column>
+       </row>
+      </vaadin-grid-layout>
+     </column>
+    </row>
+    <row>
+     <column>
+      <vaadin-grid-layout width="686px" height="52px">
+       <row>
+        <column>
+         <vaadin-label width="52px" plain-text _id="labelPassport" :middle :center>
+           Паспорт 
+         </vaadin-label>
+        </column>
+        <column>
+         <vaadin-label plain-text _id="labelPassportSeries" :middle :center>
+           серия 
+         </vaadin-label>
+        </column>
+        <column>
+         <vaadin-text-field _id="inpPassportSeries" :middle :center></vaadin-text-field>
+        </column>
+        <column>
+         <vaadin-label plain-text _id="labelPassportNumber" :middle :right>
+           № 
+         </vaadin-label>
+        </column>
+        <column>
+         <vaadin-text-field _id="inpPassportNumber" :middle :center></vaadin-text-field>
+        </column>
+       </row>
+       <row></row>
+      </vaadin-grid-layout>
+     </column>
+    </row>
+    <row>
+     <column>
+      <vaadin-grid-layout width="293px" height="55px" :middle :center>
+       <row>
+        <column>
+         <vaadin-button plain-text _id="btnSave" :middle :center>
+           Сохранить 
+         </vaadin-button>
+        </column>
+        <column>
+         <vaadin-button plain-text _id="btnCancel" :middle :center>
+           Отменить 
+         </vaadin-button>
+        </column>
+       </row>
+      </vaadin-grid-layout>
+     </column>
+    </row>
+   </vaadin-grid-layout>
+  </vaadin-vertical-layout>
+ </body>
+</html>
