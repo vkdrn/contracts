@@ -1,6 +1,5 @@
 package com.insurance.ui.view;
 
-import com.insurance.backend.entity.Client;
 import com.insurance.backend.entity.Contract;
 import com.insurance.backend.service.ContractService;
 import com.insurance.ui.ContractsUI;
@@ -58,7 +57,7 @@ public class ContractsView extends VerticalLayout implements View {
     private void addGrid() {
         grid = new Grid<Contract>("", contractService.findAll());
         grid.addColumn(Contract::getId).setCaption("Номер договора");
-        grid.addColumn(Contract::getDate).setCaption("Дата заключения");
+        grid.addColumn(Contract::getContractDate).setCaption("Дата заключения");
         grid.addColumn(e -> e.getClient().getFullname()).setCaption("Страхователь");
         grid.addColumn(Contract::getPremium).setCaption("Премия");
         grid.addColumn(Contract::getFullPeriod).setCaption("Срок действия");

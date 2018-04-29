@@ -33,6 +33,14 @@ public class ContractsUI extends UI {
         return globalContract != null;
     }
 
+    public boolean globalContractIsNew() {
+        return globalContract.getId() == null;
+    }
+
+    public boolean globalClientExists() {
+        return getGlobalContract().getClient() != null;
+    }
+
     public boolean isNew() {
         return globalContractExists() && globalContract.getId() == null;
     }

@@ -26,7 +26,9 @@ public class Contract extends AbstractEntity {
 
     private Double premium;
 
-    private LocalDate date;
+    private Long contractNumber;
+
+    private LocalDate contractDate;
 
     @NotNull
     @OneToOne
@@ -36,7 +38,7 @@ public class Contract extends AbstractEntity {
 
     }
 
-    public Contract(Integer sum, String propertyType, Integer yearBuilt, Double square, LocalDate periodStart, LocalDate periodEnd, LocalDate calcDate, Double premium, LocalDate date, Client client) {
+    public Contract(Integer sum, String propertyType, Integer yearBuilt, Double square, LocalDate periodStart, LocalDate periodEnd, LocalDate calcDate, Double premium, LocalDate contractDate, Client client) {
         this.sum = sum;
         this.propertyType = propertyType;
         this.yearBuilt = yearBuilt;
@@ -45,7 +47,7 @@ public class Contract extends AbstractEntity {
         this.periodEnd = periodEnd;
         this.calcDate = calcDate;
         this.premium = premium;
-        this.date = date;
+        this.contractDate = contractDate;
         this.client = client;
     }
 
@@ -121,12 +123,12 @@ public class Contract extends AbstractEntity {
         this.premium = premium;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getContractDate() {
+        return contractDate;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setContractDate(LocalDate contractDate) {
+        this.contractDate = contractDate;
     }
 
     public Client getClient() {
@@ -135,6 +137,14 @@ public class Contract extends AbstractEntity {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public Long getContractNumber() {
+        return contractNumber;
+    }
+
+    public void setContractNumber(Long contractNumber) {
+        this.contractNumber = contractNumber;
     }
 
     public String getFullPeriod() {
@@ -153,8 +163,9 @@ public class Contract extends AbstractEntity {
                 ", periodEnd=" + periodEnd +
                 ", calcDate=" + calcDate +
                 ", premium=" + premium +
-                ", date=" + date +
+                ", contractDate=" + contractDate +
                 ", client=" + client +
+                ", contractNumber=" + contractNumber +
                 '}';
     }
 }

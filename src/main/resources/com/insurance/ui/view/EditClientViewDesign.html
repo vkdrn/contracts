@@ -46,7 +46,36 @@
       </vaadin-grid-layout>
      </column>
     </row>
-    <row></row>
+    <row>
+     <column>
+      <vaadin-grid-layout width="686px" height="52px">
+       <row>
+        <column>
+         <vaadin-label width="52px" plain-text _id="labelPassport" :middle :center>
+           Паспорт 
+         </vaadin-label>
+        </column>
+        <column>
+         <vaadin-label plain-text _id="labelPassportSeries" :middle :center>
+           серия 
+         </vaadin-label>
+        </column>
+        <column>
+         <vaadin-text-field _id="inpPassportSeries" :middle :center></vaadin-text-field>
+        </column>
+        <column>
+         <vaadin-label plain-text _id="labelPassportNumber" :middle :right>
+           № 
+         </vaadin-label>
+        </column>
+        <column>
+         <vaadin-text-field _id="inpPassportNumber" :middle :center></vaadin-text-field>
+        </column>
+       </row>
+       <row></row>
+      </vaadin-grid-layout>
+     </column>
+    </row>
     <row>
      <column>
       <vaadin-grid-layout width="293px" height="55px" :middle :center>

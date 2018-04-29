@@ -4,6 +4,7 @@ import com.insurance.backend.entity.Client;
 import com.insurance.backend.service.ClientService;
 import com.insurance.ui.ContractsUI;
 import com.vaadin.data.Binder;
+import com.vaadin.data.converter.StringToIntegerConverter;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
@@ -11,15 +12,15 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@SpringView(name = NewClientView.NAME)
-public class NewClientView extends NewClientViewDesign implements View {
+@SpringView(name = EditClientView.NAME)
+public class EditClientView extends EditClientViewDesign implements View {
 
-    public static final String NAME = "new-client";
+    public static final String NAME = "edit-client";
 
     private ClientService clientService;
 
     @Autowired
-    public NewClientView(ClientService clientService) {
+    public EditClientView(ClientService clientService) {
         this.clientService = clientService;
     }
 
@@ -38,11 +39,21 @@ public class NewClientView extends NewClientViewDesign implements View {
         binder.forField(calBirthdate)
                 .asRequired("")
                 .bind(Client::getBirthDate, Client::setBirthDate);
+        binder.forField(inpPassportSeries)
+                .asRequired("")
+                .withValidator(str -> str.length() == 4, "Необходимо 4 символа")
+                .withConverter(new StringToIntegerConverter("Должно быть целым числом"))
+                .bind(Client::getPassportSeries, Client::setPassportSeries);
+        binder.forField(inpPassportNumber)
+                .asRequired("")
+                .withValidator(str -> str.length() == 4, "Необходимо 4 символа")
+                .withConverter(new StringToIntegerConverter("Должно быть целым числом"))
+                .bind(Client::getPassportNumber, Client::setPassportNumber);
+
+        binder.readBean(((ContractsUI) UI.getCurrent()).getGlobalContract().getClient());
 
         btnSave.addClickListener(click -> {
             binder.validate();
-            client.setPassportSeries(0);
-            client.setPassportNumber(0);
             boolean validated = binder.writeBeanIfValid(client);
             if (validated) {
                 Client result = clientService.save(client);

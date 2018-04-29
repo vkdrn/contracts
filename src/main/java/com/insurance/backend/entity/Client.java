@@ -15,15 +15,15 @@ public class Client extends AbstractEntity {
 
     private LocalDate birthDate;
 
-    private String passportSeries;
+    private Integer passportSeries;
 
-    private String passportNumber;
+    private Integer passportNumber;
 
     public Client() {
 
     }
 
-    public Client(String firstName, String patronymic, String lastName, LocalDate birthDate, String passportSeries, String passportNumber) {
+    public Client(String firstName, String patronymic, String lastName, LocalDate birthDate, Integer passportSeries, Integer passportNumber) {
         this.firstName = firstName;
         this.patronymic = patronymic;
         this.lastName = lastName;
@@ -64,19 +64,19 @@ public class Client extends AbstractEntity {
         this.birthDate = birthDate;
     }
 
-    public String getPassportSeries() {
+    public Integer getPassportSeries() {
         return passportSeries;
     }
 
-    public void setPassportSeries(String passportSeries) {
+    public void setPassportSeries(Integer passportSeries) {
         this.passportSeries = passportSeries;
     }
 
-    public String getPassportNumber() {
+    public Integer getPassportNumber() {
         return passportNumber;
     }
 
-    public void setPassportNumber(String passportNumber) {
+    public void setPassportNumber(Integer passportNumber) {
         this.passportNumber = passportNumber;
     }
 
@@ -85,6 +85,9 @@ public class Client extends AbstractEntity {
     }
 
     public String getPassportDetails() {
+        if (getPassportSeries() == null && getPassportNumber() == null) {
+            return "";
+        }
         return String.valueOf(getPassportSeries()) + " " + String.valueOf(getPassportNumber());
     }
 

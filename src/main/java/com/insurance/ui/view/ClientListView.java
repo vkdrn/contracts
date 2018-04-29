@@ -2,10 +2,12 @@ package com.insurance.ui.view;
 
 import com.insurance.backend.entity.Client;
 import com.insurance.backend.service.ClientService;
+import com.insurance.ui.ContractsUI;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Grid;
+import com.vaadin.ui.UI;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -47,7 +49,8 @@ public class ClientListView extends ClientListViewDesign implements View {
     private void selectClient() {
         if (gridClient.getSelectedItems().size() > 0) {
             Client selected = gridClient.getSelectedItems().stream().findFirst().get();
-            getUI().getNavigator().navigateTo(EditContractView.NAME + "/client=" + selected.getId());
+            ((ContractsUI) UI.getCurrent()).getGlobalContract().setClient(selected);
+            getUI().getNavigator().navigateTo(EditContractView.NAME);
         }
     }
 
