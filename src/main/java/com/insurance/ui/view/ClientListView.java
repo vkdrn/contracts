@@ -10,6 +10,7 @@ import com.vaadin.ui.Grid;
 import com.vaadin.ui.UI;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @SpringView(name = ClientListView.NAME)
@@ -42,14 +43,15 @@ public class ClientListView extends ClientListViewDesign implements View {
         gridLayout.addComponent(gridClient, 0, 1);
         gridClient.setWidth("1000px");
         gridClient.addColumn(Client::getFullname).setCaption("ФИО");
-        gridClient.addColumn(Client::getBirthDate).setCaption("Дата рождения");
+        gridClient.addColumn(c -> c.getBirthDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
+                .setCaption("Дата рождения");
         gridClient.addColumn(Client::getPassportDetails).setCaption("Паспортные данные");
     }
 
     private void selectClient() {
         if (gridClient.getSelectedItems().size() > 0) {
             Client selected = gridClient.getSelectedItems().stream().findFirst().get();
-            ((ContractsUI) UI.getCurrent()).getGlobalContract().setClient(selected);
+            ((ContractsUI) UI.getCurrent()).setCurrentClientId(selected.getId());
             getUI().getNavigator().navigateTo(EditContractView.NAME);
         }
     }

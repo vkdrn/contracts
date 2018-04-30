@@ -25,8 +25,31 @@ public class NewClientView extends NewClientViewDesign implements View {
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-        Binder<Client> binder = new Binder<>();
+        Binder<Client> binder = initFields();
         Client client = new Client();
+
+        btnSave.addClickListener(click -> {
+            binder.validate();
+            client.setPassportSeries(0);
+            client.setPassportNumber(0);
+            boolean validated = binder.writeBeanIfValid(client);
+            if (validated) {
+                Client result = clientService.save(client);
+                Notification.show("Успешно сохранено");
+                ((ContractsUI) UI.getCurrent()).setCurrentClientId(result.getId());
+                getUI().getNavigator().navigateTo(EditContractView.NAME);
+            } else {
+                Notification.show("Ошибка сохранения. Проверьте правильность заполнения полей",
+                        Notification.Type.WARNING_MESSAGE);
+            }
+        });
+
+        btnCancel.addClickListener(click -> getUI().getNavigator().navigateTo(EditContractView.NAME));
+    }
+
+    public Binder<Client> initFields() {
+        Binder<Client> binder = new Binder<>();
+
         binder.forField(inpLastname)
                 .asRequired("")
                 .bind(Client::getLastName, Client::setLastName);
@@ -39,22 +62,6 @@ public class NewClientView extends NewClientViewDesign implements View {
                 .asRequired("")
                 .bind(Client::getBirthDate, Client::setBirthDate);
 
-        btnSave.addClickListener(click -> {
-            binder.validate();
-            client.setPassportSeries(0);
-            client.setPassportNumber(0);
-            boolean validated = binder.writeBeanIfValid(client);
-            if (validated) {
-                Client result = clientService.save(client);
-                Notification.show("Успешно сохранено");
-                ((ContractsUI) UI.getCurrent()).getGlobalContract().setClient(result);
-                getUI().getNavigator().navigateTo(EditContractView.NAME);
-            } else {
-                Notification.show("Ошибка сохранения. Проверьте правильность заполнения полей",
-                        Notification.Type.WARNING_MESSAGE);
-            }
-        });
-
-        btnCancel.addClickListener(click -> getUI().getNavigator().navigateTo(EditContractView.NAME));
+        return binder;
     }
 }

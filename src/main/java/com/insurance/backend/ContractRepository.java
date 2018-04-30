@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface ContractRepository extends JpaRepository<Contract, Long> {
 
-    List<Client> countByContractNumber(Long contractNumber);
+    List<Client> findByContractNumber(Long contractNumber);
 }

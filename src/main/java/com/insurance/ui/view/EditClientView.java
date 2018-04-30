@@ -12,6 +12,9 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 @SpringView(name = EditClientView.NAME)
 public class EditClientView extends EditClientViewDesign implements View {
 
@@ -26,39 +29,23 @@ public class EditClientView extends EditClientViewDesign implements View {
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-        Binder<Client> binder = new Binder<>();
-        Client client = new Client();
-        binder.forField(inpLastname)
-                .asRequired("")
-                .bind(Client::getLastName, Client::setLastName);
-        binder.forField(inpFirstname)
-                .asRequired("")
-                .bind(Client::getFirstName, Client::setFirstName);
-        binder.forField(inpPatronymic)
-                .bind(Client::getPatronymic, Client::setPatronymic);
-        binder.forField(calBirthdate)
-                .asRequired("")
-                .bind(Client::getBirthDate, Client::setBirthDate);
-        binder.forField(inpPassportSeries)
-                .asRequired("")
-                .withValidator(str -> str.length() == 4, "Необходимо 4 символа")
-                .withConverter(new StringToIntegerConverter("Должно быть целым числом"))
-                .bind(Client::getPassportSeries, Client::setPassportSeries);
-        binder.forField(inpPassportNumber)
-                .asRequired("")
-                .withValidator(str -> str.length() == 4, "Необходимо 4 символа")
-                .withConverter(new StringToIntegerConverter("Должно быть целым числом"))
-                .bind(Client::getPassportNumber, Client::setPassportNumber);
+        ContractsUI contractsUI = (ContractsUI) UI.getCurrent();
+        Binder<Client> binder = initFields();
 
-        binder.readBean(((ContractsUI) UI.getCurrent()).getGlobalContract().getClient());
+        Client currentClient = new Client();
+        if (contractsUI.currentClientExist()) {
+            currentClient = clientService.find(contractsUI.getCurrentClientId());
+            binder.readBean(currentClient);
+        }
 
+        Client finalCurrentClient = currentClient;
         btnSave.addClickListener(click -> {
             binder.validate();
-            boolean validated = binder.writeBeanIfValid(client);
+            boolean validated = binder.writeBeanIfValid(finalCurrentClient);
             if (validated) {
-                Client result = clientService.save(client);
+                Client result = clientService.save(finalCurrentClient);
                 Notification.show("Успешно сохранено");
-                ((ContractsUI) UI.getCurrent()).getGlobalContract().setClient(result);
+                contractsUI.setCurrentClientId(result.getId());
                 getUI().getNavigator().navigateTo(EditContractView.NAME);
             } else {
                 Notification.show("Ошибка сохранения. Проверьте правильность заполнения полей",
@@ -67,5 +54,52 @@ public class EditClientView extends EditClientViewDesign implements View {
         });
 
         btnCancel.addClickListener(click -> getUI().getNavigator().navigateTo(EditContractView.NAME));
+    }
+
+    public Binder<Client> initFields() {
+        Binder<Client> binder = new Binder<>();
+
+        binder.forField(inpLastname)
+                .asRequired("")
+                .bind(Client::getLastName, Client::setLastName);
+
+        binder.forField(inpFirstname)
+                .asRequired("")
+                .bind(Client::getFirstName, Client::setFirstName);
+
+        binder.forField(inpPatronymic)
+                .bind(Client::getPatronymic, Client::setPatronymic);
+
+        binder.forField(calBirthdate)
+                .asRequired("")
+                .bind(Client::getBirthDate, Client::setBirthDate);
+
+        binder.forField(inpPassportSeries)
+                .asRequired("")
+                .withValidator(str -> str.length() == 4, "Необходимо 4 символа")
+                .withConverter(new StringToIntegerConverter("Должно быть целым числом") {
+                    @Override
+                    protected java.text.NumberFormat getFormat(Locale locale) {
+                        NumberFormat format = super.getFormat(locale);
+                        format.setGroupingUsed(false);
+                        return format;
+                    }
+                })
+                .bind(Client::getPassportSeries, Client::setPassportSeries);
+
+        binder.forField(inpPassportNumber)
+                .asRequired("")
+                .withValidator(str -> str.length() == 6, "Необходимо 6 символов")
+                .withConverter(new StringToIntegerConverter("Должно быть целым числом") {
+                    @Override
+                    protected java.text.NumberFormat getFormat(Locale locale) {
+                        NumberFormat format = super.getFormat(locale);
+                        format.setGroupingUsed(false);
+                        return format;
+                    }
+                })
+                .bind(Client::getPassportNumber, Client::setPassportNumber);
+
+        return binder;
     }
 }

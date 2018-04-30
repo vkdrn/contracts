@@ -14,34 +14,35 @@ import com.vaadin.ui.UI;
 @Theme("valo")
 public class ContractsUI extends UI {
 
-    Contract globalContract;
+    private Long currentContractId;
+    private Long currentClientId;
 
     @Override
     protected void init(VaadinRequest request) {
         getUI().getNavigator().navigateTo(ContractsView.NAME);
     }
 
-    public Contract getGlobalContract() {
-        return globalContract;
+    public Long getCurrentContractId() {
+        return currentContractId;
     }
 
-    public void setGlobalContract(Contract globalContract) {
-        this.globalContract = globalContract;
+    public void setCurrentContractId(Long currentContractId) {
+        this.currentContractId = currentContractId;
     }
 
-    public boolean globalContractExists() {
-        return globalContract != null;
+    public Long getCurrentClientId() {
+        return currentClientId;
     }
 
-    public boolean globalContractIsNew() {
-        return globalContract.getId() == null;
+    public void setCurrentClientId(Long currentClientId) {
+        this.currentClientId = currentClientId;
     }
 
-    public boolean globalClientExists() {
-        return getGlobalContract().getClient() != null;
+    public boolean currentContractExist() {
+        return currentContractId != null;
     }
 
-    public boolean isNew() {
-        return globalContractExists() && globalContract.getId() == null;
+    public boolean currentClientExist() {
+        return currentClientId != null;
     }
 }

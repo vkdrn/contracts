@@ -10,6 +10,8 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.format.DateTimeFormatter;
+
 @SpringView(name = ContractsView.NAME)
 public class ContractsView extends VerticalLayout implements View {
 
@@ -55,9 +57,10 @@ public class ContractsView extends VerticalLayout implements View {
     }
 
     private void addGrid() {
-        grid = new Grid<Contract>("", contractService.findAll());
-        grid.addColumn(Contract::getId).setCaption("Номер договора");
-        grid.addColumn(Contract::getContractDate).setCaption("Дата заключения");
+        grid = new Grid<>("", contractService.findAll());
+        grid.addColumn(Contract::getContractNumber).setCaption("Номер договора");
+        grid.addColumn(c -> c.getContractDate().format(DateTimeFormatter.ofPattern("dd.MM.yyy")))
+                .setCaption("Дата заключения");
         grid.addColumn(e -> e.getClient().getFullname()).setCaption("Страхователь");
         grid.addColumn(Contract::getPremium).setCaption("Премия");
         grid.addColumn(Contract::getFullPeriod).setCaption("Срок действия");
@@ -68,7 +71,8 @@ public class ContractsView extends VerticalLayout implements View {
     private void selectContract() {
         if (grid.getSelectedItems().size() > 0) {
             Contract selected = grid.getSelectedItems().stream().findFirst().get();
-            ((ContractsUI)UI.getCurrent()).setGlobalContract(selected);
+            ((ContractsUI)UI.getCurrent()).setCurrentContractId(selected.getId());
+            ((ContractsUI)UI.getCurrent()).setCurrentClientId(selected.getClient().getId());
             getUI().getNavigator().navigateTo(EditContractView.NAME);
         }
     }

@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import java.time.LocalDate;
 
 @Entity
-public class Client extends AbstractEntity {
+public class Client extends BaseEntity {
 
     private String firstName;
 

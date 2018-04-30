@@ -26,8 +26,12 @@ public class ContractService {
         return contractRepository.findAll();
     }
 
-    public boolean exists(Long contractNumber) {
-        return contractRepository.countByContractNumber(contractNumber).size() > 0;
+    public Contract find(Long id) {
+        return contractRepository.findOne(id);
+    }
+
+    public boolean numberExists(Long contractNumber) {
+        return contractRepository.findByContractNumber(contractNumber).size() > 0;
     }
 
     public Contract save(Contract contract) {

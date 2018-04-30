@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Entity
-public class Contract extends AbstractEntity {
+public class Contract extends BaseEntity {
 
     private Integer sum;
 
@@ -30,6 +30,28 @@ public class Contract extends AbstractEntity {
 
     private LocalDate contractDate;
 
+    private String country;
+
+    private String postalCode;
+
+    private String region;
+
+    private String area;
+
+    private String city;
+
+    private String street;
+
+    private String house;
+
+    private String housing;
+
+    private String building;
+
+    private Integer apartment;
+
+    private String comment;
+
     @NotNull
     @OneToOne
     private Client client;
@@ -38,7 +60,7 @@ public class Contract extends AbstractEntity {
 
     }
 
-    public Contract(Integer sum, String propertyType, Integer yearBuilt, Double square, LocalDate periodStart, LocalDate periodEnd, LocalDate calcDate, Double premium, LocalDate contractDate, Client client) {
+    public Contract(Integer sum, String propertyType, Integer yearBuilt, Double square, LocalDate periodStart, LocalDate periodEnd, LocalDate calcDate, Double premium, Long contractNumber, LocalDate contractDate, String country, String postalCode, String region, String area, String city, String street, String house, String housing, String building, Integer apartment, String comment, Client client) {
         this.sum = sum;
         this.propertyType = propertyType;
         this.yearBuilt = yearBuilt;
@@ -47,7 +69,19 @@ public class Contract extends AbstractEntity {
         this.periodEnd = periodEnd;
         this.calcDate = calcDate;
         this.premium = premium;
+        this.contractNumber = contractNumber;
         this.contractDate = contractDate;
+        this.country = country;
+        this.postalCode = postalCode;
+        this.region = region;
+        this.area = area;
+        this.city = city;
+        this.street = street;
+        this.house = house;
+        this.housing = housing;
+        this.building = building;
+        this.apartment = apartment;
+        this.comment = comment;
         this.client = client;
     }
 
@@ -107,14 +141,6 @@ public class Contract extends AbstractEntity {
         this.calcDate = calcDate;
     }
 
-    public String getCalcDateInString() {
-        return calcDate.toString();
-    }
-
-    public void setCalcDateInString(String calcDate) {
-        this.calcDate = LocalDate.parse(calcDate);
-    }
-
     public Double getPremium() {
         return premium;
     }
@@ -152,6 +178,94 @@ public class Contract extends AbstractEntity {
         return String.format("%s-%s", getPeriodStart().format(pattern), getPeriodEnd().format(pattern));
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getHouse() {
+        return house;
+    }
+
+    public void setHouse(String house) {
+        this.house = house;
+    }
+
+    public String getHousing() {
+        return housing;
+    }
+
+    public void setHousing(String housing) {
+        this.housing = housing;
+    }
+
+    public String getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(String building) {
+        this.building = building;
+    }
+
+    public Integer getApartment() {
+        return apartment;
+    }
+
+    public void setApartment(Integer apartment) {
+        this.apartment = apartment;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     @Override
     public String toString() {
         return "Contract{" +
@@ -163,9 +277,20 @@ public class Contract extends AbstractEntity {
                 ", periodEnd=" + periodEnd +
                 ", calcDate=" + calcDate +
                 ", premium=" + premium +
-                ", contractDate=" + contractDate +
-                ", client=" + client +
                 ", contractNumber=" + contractNumber +
+                ", contractDate=" + contractDate +
+                ", country='" + country + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", region='" + region + '\'' +
+                ", area='" + area + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", house=" + house +
+                ", housing='" + housing + '\'' +
+                ", building='" + building + '\'' +
+                ", apartment=" + apartment +
+                ", comment='" + comment + '\'' +
+                ", client=" + client +
                 '}';
     }
 }
