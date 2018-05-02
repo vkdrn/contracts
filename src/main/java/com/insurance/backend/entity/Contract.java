@@ -1,8 +1,10 @@
 package com.insurance.backend.entity;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -10,36 +12,52 @@ import java.time.format.DateTimeFormatter;
 @Entity
 public class Contract extends BaseEntity {
 
+    @NotNull
     private Integer sum;
 
+    @NotNull
     private String propertyType;
 
+    @NotNull
     private Integer yearBuilt;
 
+    @NotNull
+    @Digits(integer = 8, fraction = 1)
     private Double square;
 
+    @NotNull
     private LocalDate periodStart;
 
+    @NotNull
     private LocalDate periodEnd;
 
+    @NotNull
     private LocalDate calcDate;
 
+    @NotNull
     private Double premium;
 
+    @NotNull
+    @Column(unique = true)
     private Long contractNumber;
 
+    @NotNull
     private LocalDate contractDate;
 
+    @NotNull
     private String country;
 
     private String postalCode;
 
+    @NotNull
     private String region;
 
     private String area;
 
+    @NotNull
     private String city;
 
+    @NotNull
     private String street;
 
     private String house;
@@ -48,6 +66,7 @@ public class Contract extends BaseEntity {
 
     private String building;
 
+    @NotNull
     private Integer apartment;
 
     private String comment;
@@ -60,7 +79,11 @@ public class Contract extends BaseEntity {
 
     }
 
-    public Contract(Integer sum, String propertyType, Integer yearBuilt, Double square, LocalDate periodStart, LocalDate periodEnd, LocalDate calcDate, Double premium, Long contractNumber, LocalDate contractDate, String country, String postalCode, String region, String area, String city, String street, String house, String housing, String building, Integer apartment, String comment, Client client) {
+    public Contract(Integer sum, String propertyType, Integer yearBuilt, Double square, LocalDate periodStart,
+                    LocalDate periodEnd, LocalDate calcDate, Double premium, Long contractNumber,
+                    LocalDate contractDate, String country, String postalCode, String region, String area,
+                    String city, String street, String house, String housing, String building, Integer apartment,
+                    String comment, Client client) {
         this.sum = sum;
         this.propertyType = propertyType;
         this.yearBuilt = yearBuilt;

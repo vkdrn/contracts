@@ -2,21 +2,27 @@ package com.insurance.backend.entity;
 
 
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
 public class Client extends BaseEntity {
 
+    @NotNull
     private String firstName;
 
     private String patronymic;
 
+    @NotNull
     private String lastName;
 
+    @NotNull
     private LocalDate birthDate;
 
+    @NotNull
     private Integer passportSeries;
 
+    @NotNull
     private Integer passportNumber;
 
     public Client() {

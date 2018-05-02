@@ -30,8 +30,6 @@ public class EditContractView extends EditContractViewDesign implements View {
 
     private ContractsUI contractsUI;
 
-//    private Binder<Contract> fieldBinder;
-
     @Autowired
     public EditContractView(ClientService clientService, ContractService contractService) {
         this.clientService = clientService;
@@ -173,7 +171,7 @@ public class EditContractView extends EditContractViewDesign implements View {
         binder.forField(calPeriodEnd)
                 .asRequired("")
                 .withValidator(date -> date.isAfter(calPeriodStart.getValue()) &&
-                                date.getYear() - LocalDate.now().getYear() <= 1,
+                                date.isBefore(calPeriodStart.getValue().plusYears(1L)),
                         "должен быть > срок действия полиса с и не больше года")
                 .bind(Contract::getPeriodEnd, Contract::setPeriodEnd);
 
@@ -188,7 +186,7 @@ public class EditContractView extends EditContractViewDesign implements View {
             try {
                 insSum = Integer.parseInt(inpInsuranceSum.getValue());
                 year = Integer.parseInt(inpYearBuilt.getValue());
-                square = Double.parseDouble(inpSquare.getValue());
+                square = Double.parseDouble(inpSquare.getValue().replace(",", "."));
             } catch (NumberFormatException e) {
                 Notification.show("Указаны неправильные данные", Notification.Type.ERROR_MESSAGE);
             }
