@@ -2,6 +2,7 @@ package com.insurance.backend.entity;
 
 
 import javax.persistence.Entity;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -20,9 +21,11 @@ public class Client extends BaseEntity {
     private LocalDate birthDate;
 
     @NotNull
+    @Min(0)
     private Integer passportSeries;
 
     @NotNull
+    @Min(0)
     private Integer passportNumber;
 
     public Client() {

@@ -96,6 +96,7 @@ public class EditContractView extends EditContractViewDesign implements View {
                         return format;
                     }
                 })
+                .withValidator(num -> num > 0, "Допускается только положительное число")
                 .bind(Client::getPassportSeries, Client::setPassportSeries);
 
         binder.forField(inpPassportNumber)
@@ -109,6 +110,7 @@ public class EditContractView extends EditContractViewDesign implements View {
                         return format;
                     }
                 })
+                .withValidator(num -> num > 0, "Допускается только положительное число")
                 .bind(Client::getPassportNumber, Client::setPassportNumber);
 
         return binder;
@@ -128,6 +130,7 @@ public class EditContractView extends EditContractViewDesign implements View {
                         return format;
                     }
                 })
+                .withValidator(sum -> sum >= 0, "Допускается только неотрицательное число")
                 .bind(Contract::getSum, Contract::setSum);
 
         comboPropertyType.setItems("квартира", "дом", "комната");
@@ -147,6 +150,7 @@ public class EditContractView extends EditContractViewDesign implements View {
                     }
                 })
                 .withValidator(integer -> integer <= LocalDate.now().getYear(), "Не больше текущего года")
+                .withValidator(num -> num > 0, "Допускается только положительное число")
                 .bind(Contract::getYearBuilt, Contract::setYearBuilt);
 
         binder.forField(inpSquare)
@@ -159,6 +163,7 @@ public class EditContractView extends EditContractViewDesign implements View {
                         return format;
                     }
                 })
+                .withValidator(num -> num > 0, "Допускается только положительное число")
                 .bind(Contract::getSquare, Contract::setSquare);
 
         binder.forField(calPeriodStart)
@@ -215,12 +220,11 @@ public class EditContractView extends EditContractViewDesign implements View {
                         return format;
                     }
                 })
-                .withValidator(num -> num >= 0, "Должно быть неотрицательное")
+                .withValidator(num -> num >= 0, "Допускается только неотрицательное число")
                 .bind(Contract::getPremium, Contract::setPremium);
 
         fieldBinder.forField(inpContractNumber)
                 .asRequired("")
-                .withValidator(str -> str.length() == 6, "Необходимо 6 символов")
                 .withConverter(new StringToLongConverter("Должно быть целым числом") {
                     @Override
                     protected java.text.NumberFormat getFormat(Locale locale) {
@@ -236,6 +240,7 @@ public class EditContractView extends EditContractViewDesign implements View {
                         return !contractService.numberExists(num);
                     }
                 }, "Договор с таким номером существует")
+                .withValidator(num -> num >= 100000 && num <= 999999, "Допускается только положительное число из 6 цифр")
                 .bind(Contract::getContractNumber, Contract::setContractNumber);
 
         if (!contractsUI.currentContractExist()) {
@@ -288,6 +293,7 @@ public class EditContractView extends EditContractViewDesign implements View {
                         return format;
                     }
                 })
+                .withValidator(num -> num >= 0, "Допускается только неотрицательное число")
                 .bind(Contract::getApartment, Contract::setApartment);
 
         fieldBinder.forField(inpComment)

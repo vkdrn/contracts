@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,16 +14,20 @@ import java.time.format.DateTimeFormatter;
 public class Contract extends BaseEntity {
 
     @NotNull
+    @Min(0)
     private Integer sum;
 
     @NotNull
     private String propertyType;
 
     @NotNull
+    @Min(1)
+    @Digits(integer = 4, fraction = 0)
     private Integer yearBuilt;
 
     @NotNull
     @Digits(integer = 8, fraction = 1)
+    @Min(1)
     private Double square;
 
     @NotNull
@@ -35,10 +40,13 @@ public class Contract extends BaseEntity {
     private LocalDate calcDate;
 
     @NotNull
+    @Min(0)
     private Double premium;
 
     @NotNull
     @Column(unique = true)
+    @Min(1)
+    @Digits(integer = 6, fraction = 0)
     private Long contractNumber;
 
     @NotNull
@@ -67,6 +75,7 @@ public class Contract extends BaseEntity {
     private String building;
 
     @NotNull
+    @Min(0)
     private Integer apartment;
 
     private String comment;

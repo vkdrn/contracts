@@ -73,6 +73,7 @@ public class EditClientView extends EditClientViewDesign implements View {
                         return format;
                     }
                 })
+                .withValidator(num -> num > 0, "Допускается только положительное число")
                 .bind(Client::getPassportSeries, Client::setPassportSeries);
 
         binder.forField(inpPassportNumber)
@@ -86,6 +87,7 @@ public class EditClientView extends EditClientViewDesign implements View {
                         return format;
                     }
                 })
+                .withValidator(num -> num > 0, "Допускается только положительное число")
                 .bind(Client::getPassportNumber, Client::setPassportNumber);
 
         return binder;
